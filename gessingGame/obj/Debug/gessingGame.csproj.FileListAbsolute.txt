@@ -1,0 +1,4 @@
+C:\Users\lucas\source\repos\gessingGame\gessingGame\obj\Debug\gessingGame.csprojAssemblyReference.cache
+C:\Users\lucas\source\repos\gessingGame\gessingGame\obj\Debug\gessingGame.Properties.Resources.resources
+C:\Users\lucas\source\repos\gessingGame\gessingGame\obj\Debug\gessingGame.csproj.GenerateResource.cache
+C:\Users\lucas\source\repos\gessingGame\gessingGame\obj\Debug\gessingGame.csproj.CoreCompileInputs.cache
