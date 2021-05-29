@@ -46,19 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="view\Input.cs">
+    <Compile Include="View\Input.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\Input.Designer.cs">
+    <Compile Include="View\Input.Designer.cs">
       <DependentUpon>Input.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\View.cs">
+    <Compile Include="View\View.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\View.Designer.cs">
+    <Compile Include="View\View.Designer.cs">
       <DependentUpon>View.cs</DependentUpon>
     </Compile>
-    <Compile Include="model\Prato.cs" />
+    <Compile Include="Model\Prato.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -70,10 +70,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="view\Input.resx">
+    <EmbeddedResource Include="View\Input.resx">
       <DependentUpon>Input.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\View.resx">
+    <EmbeddedResource Include="View\View.resx">
       <DependentUpon>View.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

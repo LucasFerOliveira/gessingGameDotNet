@@ -5,14 +5,16 @@ namespace gessingGame.model
     public class Prato
     {
         public String nome { get; set; }
-        public String caracteristica { get; set; }
+        public String descricao { get; set; }
         public bool isMassa { get; set; }
+        public int categoria { get; set; }
 
-        public Prato(String nome, String catacteristica, bool isMassa)
+        public Prato(String nome, String descricao, bool isMassa, int categoria)
         {
             this.nome = nome;
-            this.caracteristica = catacteristica;
+            this.descricao = descricao;
             this.isMassa = isMassa;
+            this.categoria = categoria;
         }
 
         public Prato()

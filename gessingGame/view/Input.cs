@@ -1,12 +1,6 @@
 ﻿using gessingGame.model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace gessingGame.view
@@ -20,6 +14,8 @@ namespace gessingGame.view
         public String pratoAnt;
         public String nome;
         public bool isMassa;
+        public int auxMassa;
+        public int auxNMassa;
         public frmInput()
         {
             InitializeComponent();
@@ -44,7 +40,7 @@ namespace gessingGame.view
             if (isPrato)
             {
                 isPrato = false;
-                frmInput newForm = new frmInput() { nome = txtInput.Text, isPrato = isPrato, pratoAnt = pratoAnt, isMassa = isMassa, pratos = pratos };
+                frmInput newForm = new frmInput() { nome = txtInput.Text, isPrato = isPrato, pratoAnt = pratoAnt, isMassa = isMassa, pratos = pratos, auxMassa = auxMassa, auxNMassa = auxNMassa };
                 newForm.ShowDialog();
             }
             else if (addPrato.nome != nome)
@@ -53,8 +49,9 @@ namespace gessingGame.view
         public List<Prato> InsereLista()
         {
             addPrato.nome = nome;
-            addPrato.caracteristica = txtInput.Text;
+            addPrato.descricao = txtInput.Text;
             addPrato.isMassa = isMassa;
+            addPrato.categoria = isMassa ? auxMassa : auxNMassa;
             pratos.Add(addPrato);
             return pratos;
         }
