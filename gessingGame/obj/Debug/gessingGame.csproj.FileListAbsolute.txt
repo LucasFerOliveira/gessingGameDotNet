@@ -2,3 +2,14 @@ C:\Users\lucas\source\repos\gessingGame\gessingGame\obj\Debug\gessingGame.csproj
 C:\Users\lucas\source\repos\gessingGame\gessingGame\obj\Debug\gessingGame.Properties.Resources.resources
 C:\Users\lucas\source\repos\gessingGame\gessingGame\obj\Debug\gessingGame.csproj.GenerateResource.cache
 C:\Users\lucas\source\repos\gessingGame\gessingGame\obj\Debug\gessingGame.csproj.CoreCompileInputs.cache
+C:\Projetos\Pessoal\gessingGameDotNet\gessingGame\obj\Debug\gessingGame.csprojAssemblyReference.cache
+C:\Projetos\Pessoal\gessingGameDotNet\gessingGame\obj\Debug\gessingGame.Properties.Resources.resources
+C:\Projetos\Pessoal\gessingGameDotNet\gessingGame\obj\Debug\gessingGame.view.frmInput.resources
+C:\Projetos\Pessoal\gessingGameDotNet\gessingGame\obj\Debug\gessingGame.csproj.GenerateResource.cache
+C:\Projetos\Pessoal\gessingGameDotNet\gessingGame\obj\Debug\gessingGame.csproj.CoreCompileInputs.cache
+C:\Projetos\Pessoal\gessingGameDotNet\gessingGame\bin\Debug\gessingGame.exe.config
+C:\Projetos\Pessoal\gessingGameDotNet\gessingGame\bin\Debug\gessingGame.exe
+C:\Projetos\Pessoal\gessingGameDotNet\gessingGame\bin\Debug\gessingGame.pdb
+C:\Projetos\Pessoal\gessingGameDotNet\gessingGame\obj\Debug\gessingGame.frmView.resources
+C:\Projetos\Pessoal\gessingGameDotNet\gessingGame\obj\Debug\gessingGame.exe
+C:\Projetos\Pessoal\gessingGameDotNet\gessingGame\obj\Debug\gessingGame.pdb

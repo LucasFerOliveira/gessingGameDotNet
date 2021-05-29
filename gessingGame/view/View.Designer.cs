@@ -1,7 +1,7 @@
 ﻿
 namespace gessingGame
 {
-    partial class View
+    partial class frmView
     {
         /// <summary>
         /// Required designer variable.
@@ -29,35 +29,36 @@ namespace gessingGame
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnOk = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // label2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(45, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Pense em um prato que gosta";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(52, 36);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(148, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Pense em um prato que gosta";
             // 
-            // button1
+            // btnOk
             // 
-            this.button1.Location = new System.Drawing.Point(78, 62);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnOk.Location = new System.Drawing.Point(91, 75);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(75, 23);
+            this.btnOk.TabIndex = 1;
+            this.btnOk.Text = "OK";
+            this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // View
+            // frmView
             // 
-            this.ClientSize = new System.Drawing.Size(218, 118);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
-            this.Name = "View";
-            this.Text = "Jogo Gourmet";
+            this.ClientSize = new System.Drawing.Size(254, 174);
+            this.Controls.Add(this.btnOk);
+            this.Controls.Add(this.label2);
+            this.Name = "frmView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -67,6 +68,8 @@ namespace gessingGame
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnOk;
     }
 }
 

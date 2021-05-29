@@ -1,4 +1,5 @@
 ﻿using gessingGame.model;
+using gessingGame.view;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,26 +12,39 @@ using System.Windows.Forms;
 
 namespace gessingGame
 {
-    public partial class View : Form
+    public partial class frmView : Form
     {
-        private Prato massa = new Prato("Lasanha", "");
-        private Prato naoMassa = new Prato("Bolo de Chocolate", "");
+        private List<Prato> pratos = new List<Prato>();
 
-        private ListPratos pratosMassa = new ListPratos();
-        private ListPratos pratosNaoMassa = new ListPratos();
-
-        private static int resposta;
-
-        public View()
+        public frmView()
         {
             InitializeComponent();
 
-            this.pratosMassa.getPratos().Add(massa);
-            this.pratosNaoMassa.getPratos().Add(naoMassa);
+            this.pratos.Add(new Prato("Lasanha", String.Empty, false));
+            this.pratos.Add(new Prato("Bolo de Chocolate", String.Empty, false));
         }
 
-        private void InitializeComponent()
+        private void btnOk_Click(object sender, EventArgs e)
         {
+            var confirmResult = MessageBox.Show("O prato que você pensou é massa?", "", MessageBoxButtons.YesNo);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+                var isMassa = MessageBox.Show("O prato que você pensou é Lasanha?", "", MessageBoxButtons.YesNo);
+                if (isMassa == DialogResult.Yes)
+                    MessageBox.Show("Acertei de novo!", "", MessageBoxButtons.OK);
+                else
+                {
+                    frmInput newForm = new frmInput(){ isPrato = true, pratos = pratos, pratoAnt =  pratos.FirstOrDefault().caracteristica, isMassa = true};
+                    newForm.ShowDialog();
+                }
+            }
+            else
+            {
+                var noMassa = MessageBox.Show("O prato que você pensou é Bolo de Chocolate?", "", MessageBoxButtons.YesNo);
+                frmInput newForm = new frmInput() { isPrato = true, pratos = pratos, pratoAnt = pratos.FirstOrDefault().caracteristica, isMassa = false };
+                newForm.ShowDialog();
+            }
 
         }
     }

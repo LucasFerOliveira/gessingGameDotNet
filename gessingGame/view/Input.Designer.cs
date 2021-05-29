@@ -59,9 +59,11 @@ namespace gessingGame.view
             this.btnOK.TabIndex = 2;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(223, 94);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -81,7 +83,9 @@ namespace gessingGame.view
             this.Controls.Add(this.txtInput);
             this.Controls.Add(this.lblText);
             this.Name = "frmInput";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Jogo Gourmet";
+            this.Load += new System.EventHandler(this.frmInput_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
