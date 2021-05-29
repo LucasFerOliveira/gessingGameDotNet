@@ -18,49 +18,45 @@ namespace gessingGame.view
         public List<Prato> pratos = new List<Prato>();
         public bool isPrato;
         public String pratoAnt;
-        public String caracteristica;
+        public String nome;
         public bool isMassa;
         public frmInput()
         {
             InitializeComponent();
-
         }
 
         private void frmInput_Load(object sender, EventArgs e)
         {
             if (isPrato)
-            {
                 lblText.Text = "Qual prato você pensou?";
-
-            }
             else
-            {
-                lblText.Text = addPrato.caracteristica + "é _______ mas " + pratoAnt;
-            }
-
+                lblText.Text = "" + nome + " é _______ mas " + pratoAnt;
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            Retorno();
+            InsereNome();
             this.Close();
         }
 
-        public List<Prato> Retorno()
+        public void InsereNome()
         {
-            Prato newPrato = new Prato();
             if (isPrato)
             {
                 isPrato = false;
-                frmInput newForm = new frmInput() { caracteristica = txtInput.Text, isPrato = isPrato };
+                frmInput newForm = new frmInput() { nome = txtInput.Text, isPrato = isPrato, pratoAnt = pratoAnt, isMassa = isMassa, pratos = pratos };
                 newForm.ShowDialog();
             }
-            newPrato.caracteristica = caracteristica;
-            newPrato.isMassa = isMassa;
-            newPrato.descricao = txtInput.Text;
-            pratos.Add(newPrato);
+            else if (addPrato.nome != nome)
+                InsereLista();
+        }
+        public List<Prato> InsereLista()
+        {
+            addPrato.nome = nome;
+            addPrato.caracteristica = txtInput.Text;
+            addPrato.isMassa = isMassa;
+            pratos.Add(addPrato);
             return pratos;
-
         }
     }
 }

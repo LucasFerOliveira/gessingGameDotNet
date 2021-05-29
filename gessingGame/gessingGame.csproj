@@ -58,7 +58,6 @@
     <Compile Include="view\View.Designer.cs">
       <DependentUpon>View.cs</DependentUpon>
     </Compile>
-    <Compile Include="model\ListPratos.cs" />
     <Compile Include="model\Prato.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
