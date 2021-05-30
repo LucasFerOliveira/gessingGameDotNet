@@ -60,7 +60,7 @@ namespace gessingGame
                                 }
                                 else
                                 {
-                                    var tentativaSub = MessageBox.Show("O prato que você pensou é " + lstMassa.ElementAt(i).descricao + "?", "Confirm", MessageBoxButtons.YesNo);
+                                    var tentativaSub = MessageBox.Show("O prato que você pensou é " + lstMassa.ElementAt(++i).descricao + "?", "Confirm", MessageBoxButtons.YesNo);
                                     if (tentativaSub == DialogResult.Yes)
                                     {
                                         foreach (var itemPrato in pratos.Where(p => p.isMassa && p.categoria == lstMassa.ElementAt(i).categoria && p.descricao.Equals(lstMassa.ElementAt(i).descricao)))
@@ -81,7 +81,11 @@ namespace gessingGame
                             }
 
                         }
-                        insereList(isMassa);
+                        else if (i == lstMassa.Count() -1)
+                        {
+                            pratoInicial(true);
+                            break;
+                        }
                     }
                 }
             }
