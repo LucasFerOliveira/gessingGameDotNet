@@ -21,98 +21,53 @@ namespace gessingGame
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            var isMassa = MessageBox.Show("O prato que você pensou é massa?", "Confirm", MessageBoxButtons.YesNo);
-
-            if (isMassa == DialogResult.Yes)
-            {
-                validaResposta(true);
-            }
+            var resposta = MessageBox.Show("O prato que você pensou é massa?", "Confirm", MessageBoxButtons.YesNo);
+            var isMassa = resposta == DialogResult.Yes;
+            var lst = pratos.Where(p => p.isMassa == isMassa && p.categoria != 0);
+            if (lst.Count() == 0)
+                pratoInicial(isMassa);
             else
-            {
-                validaResposta(false);
-            }
-
+                validaResposta(lst);
         }
-        public void validaResposta(bool isMassa)
+        public void validaResposta(IEnumerable<Prato> lst)
         {
-            if (isMassa)
+            foreach (var item in lst)
             {
-                var lstMassa = pratos.Where(p => p.isMassa);
-                if (lstMassa.Count() == 1)
-                    pratoInicial(isMassa);
-                else
+                var resposta = MessageBox.Show("O prato que você pensou é " + item.descricao + "?", "Confirm", MessageBoxButtons.YesNo);
+                if (resposta == DialogResult.Yes)
                 {
-                    for (int i = 1; i < lstMassa.Count(); i++)
+                    var lstSub = lst.Where(p => p.categoria == item.categoria && p.uid == item.uid);
+                    if (lstSub.Count() == 0)
                     {
-                        var tentativa = MessageBox.Show("O prato que você pensou é " + lstMassa.ElementAt(i).descricao + "?", "Confirm", MessageBoxButtons.YesNo);
-                        if (tentativa == DialogResult.Yes)
+                        var respostaPrato = MessageBox.Show("O prato que você pensou é " + item.nome + "?", "Confirm", MessageBoxButtons.YesNo);
+                        if (respostaPrato == DialogResult.Yes)
                         {
-                            foreach (var item in pratos.Where(p => p.isMassa && p.categoria == lstMassa.ElementAt(i).categoria))
-                            {
-                                if (pratos.Where(p => p.isMassa && p.categoria == lstMassa.ElementAt(i).categoria).Count() == 1)
-                                {
-                                    var tentativaPrato = MessageBox.Show("O prato que você pensou é " + lstMassa.ElementAt(i).nome + "?", "Confirm", MessageBoxButtons.YesNo);
-                                    if (tentativaPrato == DialogResult.Yes)
-                                    {
-                                        MessageBox.Show("Acertei de novo!", "Jogo Gourmet", MessageBoxButtons.OK);
-                                        break;
-                                    }
-                                }
-                                else
-                                {
-                                    var tentativaSub = MessageBox.Show("O prato que você pensou é " + lstMassa.ElementAt(++i).descricao + "?", "Confirm", MessageBoxButtons.YesNo);
-                                    if (tentativaSub == DialogResult.Yes)
-                                    {
-                                        foreach (var itemPrato in pratos.Where(p => p.isMassa && p.categoria == lstMassa.ElementAt(i).categoria && p.descricao.Equals(lstMassa.ElementAt(i).descricao)))
-                                        {
-                                            var tentativaPrato = MessageBox.Show("O prato que você pensou é " + lstMassa.ElementAt(i).nome + "?", "Confirm", MessageBoxButtons.YesNo);
-                                            if (tentativaSub == DialogResult.Yes)
-                                            {
-                                                MessageBox.Show("Acertei de novo!", "Jogo Gourmet", MessageBoxButtons.OK);
-                                                break;
-                                            }
-                                            ++i;
-                                        }
-                                    }
-                                    else
-                                        ++i;
-                                }
-
-                            }
-
+                            MessageBox.Show("Acertei de novo!", "Jogo Gourmet", MessageBoxButtons.OK);
+                            return;
                         }
-                        else if (i == lstMassa.Count() -1)
+                        else
                         {
-                            pratoInicial(true);
-                            break;
+                            insereList(item.isMassa);
+                            return;
                         }
+                    }
+                    else
+                    {
+                        validaResposta(lstSub);
                     }
                 }
             }
-            else
-            {
 
-
-                //foreach (var lst in pratos.Where(p => !p.isMassa).Reverse())
-                //{
-                //    var tentativa = MessageBox.Show("O prato que você pensou é " + lst.nome + "?", "Confirm", MessageBoxButtons.YesNo);
-                //    if (tentativa == DialogResult.Yes)
-                //    {
-                //        MessageBox.Show("Acertei de novo!", "Jogo Gourmet", MessageBoxButtons.OK);
-                //        break;
-                //    }
-                //}
-                //insereList(isMassa);
-            }
         }
         public void pratoInicial(bool isMassa)
         {
-            var lstPratoInicial = pratos.Where(p => isMassa && p.categoria == 0);
+            var lstPratoInicial = pratos.Where(p => isMassa).Where(p => p.categoria == 0);
             var tentativa = MessageBox.Show("O prato que você pensou é " + lstPratoInicial.First().nome + "?", "Confirm", MessageBoxButtons.YesNo);
             if (tentativa == DialogResult.Yes)
             {
                 MessageBox.Show("Acertei de novo!", "Jogo Gourmet", MessageBoxButtons.OK);
-            } else
+            }
+            else
                 insereList(isMassa);
         }
 

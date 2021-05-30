@@ -52,6 +52,7 @@ namespace gessingGame.view
             addPrato.descricao = txtInput.Text;
             addPrato.isMassa = isMassa;
             addPrato.categoria = isMassa ? auxMassa : auxNMassa;
+            addPrato.uid = Guid.NewGuid();
             pratos.Add(addPrato);
             return pratos;
         }
