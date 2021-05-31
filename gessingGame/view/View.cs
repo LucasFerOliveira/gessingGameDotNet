@@ -23,7 +23,6 @@ namespace gessingGame
         {
             var resposta = MessageBox.Show("O prato que você pensou é massa?", "Confirm", MessageBoxButtons.YesNo);
             var isMassa = resposta == DialogResult.Yes;
-            var teste = pratos;
             var lst = pratos.Where(p => p.isMassa == isMassa && p.categoria != 0);
             if (lst.Count() == 0)
                 PratoInicial(isMassa, 1);
@@ -80,15 +79,15 @@ namespace gessingGame
                             return;
                         }
                     }
-                    var teste = lstOriginal.Max(p => p.categoria);
-                    if (lstSub.Count() == 0 && item.categoria == teste)
+                    if (lstSub.Count() == 0 && item.categoria == lstOriginal.Max(p => p.categoria) && !maisCategoria)
                     {
                         PratoInicial(item.isMassa, item.categoria + 1);
                         return;
                     }
                     else if (lstSub.Count() == 0 && !maisCategoria)
                     {
-                        ValidaResposta(lstSub, lstOriginal);
+                        var lstLimpa = lstOriginal.Where(p => p.categoria > item.categoria);
+                        ValidaResposta(lstLimpa, lstOriginal);
                         return;
                     }
                     if (lstSub.Count() > 0)
