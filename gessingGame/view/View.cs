@@ -27,62 +27,81 @@ namespace gessingGame
             if (lst.Count() == 0)
                 PratoInicial(isMassa, 1);
             else
-                ValidaResposta(lst, lst);
+                ValidaResposta(lst, lst, 0);
         }
-        public void ValidaResposta(IEnumerable<Prato> lst, IEnumerable<Prato> lstOriginal)
+        public void ValidaResposta(IEnumerable<Prato> lst, IEnumerable<Prato> lstOriginal, int categoria)
         {
             foreach (var item in lst)
             {
                 var resposta = MessageBox.Show("O prato que você pensou é " + item.descricao + "?", "Confirm", MessageBoxButtons.YesNo);
                 var lstSub = lst.Where(p => p.categoria == item.categoria && p.uid != item.uid);
-                var varCategoria = lst.Where(p => p.categoria == item.categoria).Count();
+                var countCategoria = lstOriginal.Where(p => p.categoria == item.categoria).Count();
+                var catMax = lstOriginal.Max(p => p.categoria);
                 var nomePai = lstOriginal.First(p => p.categoria == item.categoria).nome;
-                if (varCategoria > 1 && lstSub.Count() > 0)
+                var nomeUltimo = lstOriginal.Last(p => p.categoria == item.categoria).nome;
+                var catCorrente = categoria;
+                if (resposta == DialogResult.Yes || catCorrente > 0)
                 {
-                    ValidaResposta(lstSub, lstOriginal);
-                    return;
-                }
-                else if (varCategoria > 1)
-                {
-                    var respostaPrato = MessageBox.Show("O prato que você pensou é " + item.nome + "?", "Confirm", MessageBoxButtons.YesNo);
-                    if (respostaPrato == DialogResult.Yes)
+                    catCorrente = resposta == DialogResult.Yes ? catCorrente+1 : catCorrente;
+                    if ((catCorrente > 1 && lstSub.Count() > 0) || (catCorrente == 1 && countCategoria == 1))
                     {
-                        MessageBox.Show("Acertei de novo!", "Jogo Gourmet", MessageBoxButtons.OK);
+                        ValidaPratoNome(item);
                         return;
                     }
                     else
                     {
-                        InsereList(item.isMassa, item.categoria, item.nome);
-                        return;
+                        if (lstSub.Count() == 0)
+                        {
+                            var respostaPrato = MessageBox.Show("O prato que você pensou é " + nomePai + "?", "Confirm", MessageBoxButtons.YesNo);
+                            if (respostaPrato == DialogResult.Yes)
+                            {
+                                MessageBox.Show("Acertei de novo!", "Jogo Gourmet", MessageBoxButtons.OK);
+                                return;
+                            }
+                            else
+                            {
+                                InsereList(item.isMassa, item.categoria, item.nome);
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            ValidaResposta(lstSub, lstOriginal, catCorrente);
+                            return;
+                        }
                     }
                 }
-                if (lstSub.Count() == 0 && varCategoria > 1)
+                else
                 {
-                    var respostaPrato = MessageBox.Show("O prato que você pensou é " + nomePai + "?", "Confirm", MessageBoxButtons.YesNo);
-                    if (respostaPrato == DialogResult.Yes)
+                    if (item.categoria != catMax && catCorrente == 0)
                     {
-                        MessageBox.Show("Acertei de novo!", "Jogo Gourmet", MessageBoxButtons.OK);
+                        var lstLimpa = lstOriginal.Where(p => p.categoria > item.categoria);
+                        ValidaResposta(lstLimpa, lstOriginal, catCorrente);
                         return;
                     }
                     else
                     {
-                        InsereList(item.isMassa, item.categoria, item.nome);
+                        PratoInicial(item.isMassa, item.categoria + 1);
                         return;
                     }
-                }
-                if (lstSub.Count() == 0 && item.categoria == lstOriginal.Max(p => p.categoria) && varCategoria == 1)
-                {
-                    PratoInicial(item.isMassa, item.categoria + 1);
-                    return;
-                }
-                if (lstOriginal.Where(p => p.categoria == item.categoria + 1).Count() > 0)
-                {
-                    var lstLimpa = lstOriginal.Where(p => p.categoria != item.categoria);
-                    ValidaResposta(lstLimpa, lstOriginal);
-                    return;
-                }
-            }
 
+                }
+
+            }
+        }
+        public void ValidaPratoNome(Prato prato)
+        {
+            var respostaPrato = MessageBox.Show("O prato que você pensou é " + prato.nome + "?", "Confirm", MessageBoxButtons.YesNo);
+            if (respostaPrato == DialogResult.Yes)
+            {
+                MessageBox.Show("Acertei de novo!", "Jogo Gourmet", MessageBoxButtons.OK);
+                return;
+            }
+            else
+            {
+                InsereList(prato.isMassa, prato.categoria, prato.nome);
+                return;
+            }
         }
         public void PratoInicial(bool isMassa, int categoria)
         {
