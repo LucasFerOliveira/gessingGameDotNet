@@ -10,12 +10,12 @@ namespace gessingGame.view
         private Prato addPrato = new Prato();
 
         public List<Prato> pratos = new List<Prato>();
-        public bool isPrato;
+        public bool éPrato;
         public String pratoAnt;
         public String nome;
-        public bool isMassa;
-        public int categoria;
-        public Guid fk_uid;
+        public bool éMassa;
+        public int level;
+        public Guid vinculo;
         public frmInput()
         {
             InitializeComponent();
@@ -23,7 +23,7 @@ namespace gessingGame.view
 
         private void frmInput_Load(object sender, EventArgs e)
         {
-            if (isPrato)
+            if (éPrato)
                 lblText.Text = "Qual prato você pensou?";
             else
                 lblText.Text = "" + nome + " é _______ mas " + pratoAnt;
@@ -37,10 +37,10 @@ namespace gessingGame.view
 
         public void InsereNome()
         {
-            if (isPrato)
+            if (éPrato)
             {
-                isPrato = false;
-                frmInput newForm = new frmInput() { nome = txtInput.Text, isPrato = isPrato, pratoAnt = pratoAnt, isMassa = isMassa, pratos = pratos, categoria = categoria, fk_uid = fk_uid };
+                éPrato = false;
+                frmInput newForm = new frmInput() { nome = txtInput.Text, éPrato = éPrato, pratoAnt = pratoAnt, éMassa = éMassa, pratos = pratos, level = level, vinculo = vinculo };
                 newForm.ShowDialog();
             }
             else if (addPrato.nome != nome)
@@ -50,10 +50,10 @@ namespace gessingGame.view
         {
             addPrato.nome = nome;
             addPrato.descricao = txtInput.Text;
-            addPrato.isMassa = isMassa;
-            addPrato.categoria = categoria;
+            addPrato.éMassa = éMassa;
+            addPrato.nivel = level;
             addPrato.uid = Guid.NewGuid();
-            addPrato.fk_uid = fk_uid == Guid.Empty ? addPrato.uid : fk_uid;
+            addPrato.vinculo = vinculo == Guid.Empty ? addPrato.uid : vinculo;
             pratos.Add(addPrato);
             return pratos;
         }
