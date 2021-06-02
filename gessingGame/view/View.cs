@@ -15,8 +15,8 @@ namespace gessingGame
         {
             InitializeComponent();
 
-            this.pratos.Add(new Prato("Lasanha", String.Empty, true, 0));
-            this.pratos.Add(new Prato("Bolo de Chocolate", String.Empty, false, 0));
+            this.pratos.Add(new Prato("Lasanha", String.Empty, true, 0, Guid.NewGuid()));
+            this.pratos.Add(new Prato("Bolo de Chocolate", String.Empty, false, 0, Guid.NewGuid()));
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -37,13 +37,18 @@ namespace gessingGame
                 var lstSub = lst.Where(p => p.categoria == item.categoria && p.uid != item.uid);
                 var countCategoria = lstOriginal.Where(p => p.categoria == item.categoria).Count();
                 var catMax = lstOriginal.Max(p => p.categoria);
-                var nomePai = lstOriginal.First(p => p.categoria == item.categoria).nome;
+                var nomePai = lstOriginal.First(p => p.uid == item.fk_uid).nome;
                 var nomeUltimo = lstOriginal.Last(p => p.categoria == item.categoria).nome;
-                var catCorrente = categoria;
-                if (resposta == DialogResult.Yes || catCorrente > 0)
+                var lstMaisCat = lstOriginal.Where(p => p.fk_uid == item.uid && p.uid != p.fk_uid);
+                categoria = resposta == DialogResult.Yes ? categoria + 1 : categoria;
+                if (resposta == DialogResult.Yes || categoria > 0)
                 {
-                    catCorrente = resposta == DialogResult.Yes ? catCorrente+1 : catCorrente;
-                    if ((catCorrente > 1 && lstSub.Count() > 0) || (catCorrente == 1 && countCategoria == 1))
+                    if (lstMaisCat.Count() > 0 && resposta == DialogResult.Yes)
+                    {
+                        ValidaResposta(lstMaisCat, lstOriginal, categoria);
+                        return;
+                    }
+                    if ((categoria > 1 && lstSub.Count() > 0) || (categoria == 1 && countCategoria == 1) || (lstSub.Count() == 0 && countCategoria > 1 && resposta == DialogResult.Yes))
                     {
                         ValidaPratoNome(item);
                         return;
@@ -60,23 +65,23 @@ namespace gessingGame
                             }
                             else
                             {
-                                InsereList(item.isMassa, item.categoria, item.nome);
+                                InsereList(item.isMassa, item.categoria, item.nome, lstOriginal.First(p => p.uid == item.fk_uid).uid);
                                 return;
                             }
                         }
                         else
                         {
-                            ValidaResposta(lstSub, lstOriginal, catCorrente);
+                            ValidaResposta(lstSub, lstOriginal, categoria);
                             return;
                         }
                     }
                 }
                 else
                 {
-                    if (item.categoria != catMax && catCorrente == 0)
+                    if (item.categoria != catMax && categoria == 0)
                     {
                         var lstLimpa = lstOriginal.Where(p => p.categoria > item.categoria);
-                        ValidaResposta(lstLimpa, lstOriginal, catCorrente);
+                        ValidaResposta(lstLimpa, lstOriginal, categoria);
                         return;
                     }
                     else
@@ -99,7 +104,7 @@ namespace gessingGame
             }
             else
             {
-                InsereList(prato.isMassa, prato.categoria, prato.nome);
+                InsereList(prato.isMassa, prato.categoria, prato.nome, prato.uid);
                 return;
             }
         }
@@ -112,12 +117,12 @@ namespace gessingGame
                 MessageBox.Show("Acertei de novo!", "Jogo Gourmet", MessageBoxButtons.OK);
             }
             else
-                InsereList(isMassa, categoria, lstPratoInicial.ElementAt(0).nome);
+                InsereList(isMassa, categoria, lstPratoInicial.ElementAt(0).nome, Guid.Empty);
         }
 
-        public void InsereList(bool isMassa, int categoria, String pratAnt)
+        public void InsereList(bool isMassa, int categoria, String pratAnt, Guid fk_uid)
         {
-            frmInput newForm = new frmInput() { isPrato = true, pratos = pratos, pratoAnt = pratAnt, isMassa = isMassa, categoria = categoria };
+            frmInput newForm = new frmInput() { isPrato = true, pratos = pratos, pratoAnt = pratAnt, isMassa = isMassa, categoria = categoria, fk_uid = fk_uid };
             newForm.ShowDialog();
         }
 

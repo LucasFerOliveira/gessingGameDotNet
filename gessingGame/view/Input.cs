@@ -15,6 +15,7 @@ namespace gessingGame.view
         public String nome;
         public bool isMassa;
         public int categoria;
+        public Guid fk_uid;
         public frmInput()
         {
             InitializeComponent();
@@ -39,7 +40,7 @@ namespace gessingGame.view
             if (isPrato)
             {
                 isPrato = false;
-                frmInput newForm = new frmInput() { nome = txtInput.Text, isPrato = isPrato, pratoAnt = pratoAnt, isMassa = isMassa, pratos = pratos, categoria = categoria };
+                frmInput newForm = new frmInput() { nome = txtInput.Text, isPrato = isPrato, pratoAnt = pratoAnt, isMassa = isMassa, pratos = pratos, categoria = categoria, fk_uid = fk_uid };
                 newForm.ShowDialog();
             }
             else if (addPrato.nome != nome)
@@ -52,6 +53,7 @@ namespace gessingGame.view
             addPrato.isMassa = isMassa;
             addPrato.categoria = categoria;
             addPrato.uid = Guid.NewGuid();
+            addPrato.fk_uid = fk_uid == Guid.Empty ? addPrato.uid : fk_uid;
             pratos.Add(addPrato);
             return pratos;
         }
